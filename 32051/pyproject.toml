@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flashcards-cli"
+version = "0.1.0"
+description = "间隔重复闪卡学习工具 - 基于SM-2算法的命令行闪卡应用"
+requires-python = ">=3.9"
+dependencies = [
+    "typer>=0.12.0",
+    "rich>=13.7.0",
+    "python-dateutil>=2.8.2",
+]
+
+[project.scripts]
+flashcards = "flashcards.cli:app"
+
+[tool.setuptools.packages.find]
+include = ["flashcards*"]

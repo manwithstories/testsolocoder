@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kanban-cli"
+version = "0.1.0"
+description = "A command-line Kanban board management tool"
+requires-python = ">=3.8"
+dependencies = [
+    "typer>=0.9.0",
+    "rich>=13.0.0",
+    "python-dateutil>=2.8.0",
+]
+
+[project.scripts]
+kanban = "kanban_cli.cli:app"
