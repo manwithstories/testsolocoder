@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "track-cli"
+version = "0.1.0"
+description = "A lightweight command-line expense tracker"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [{ name = "Track CLI" }]
+license = { text = "MIT" }
+dependencies = [
+    "typer>=0.9.0",
+    "rich>=13.0.0",
+]
+
+[project.scripts]
+track = "track.commands.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["track*"]

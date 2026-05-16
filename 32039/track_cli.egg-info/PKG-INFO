@@ -1,0 +1,78 @@
+Metadata-Version: 2.4
+Name: track-cli
+Version: 0.1.0
+Summary: A lightweight command-line expense tracker
+Author: Track CLI
+License: MIT
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: typer>=0.9.0
+Requires-Dist: rich>=13.0.0
+
+# Track CLI - 轻量级命令行记账工具
+
+一个简单易用的终端记账工具，使用 Python Typer 编写。
+
+## 功能特性
+
+- 📝 **快速记账** - 一键添加支出或收入记录
+- 📊 **月度汇总** - 按分类汇总，终端柱状图可视化
+- 📤 **CSV导出** - 导出数据到CSV，方便Excel分析
+- 💰 **预算管理** - 设置分类预算，超支提醒
+- 💾 **本地存储** - SQLite本地数据库，无需云同步
+
+## 安装
+
+```bash
+pip install -e .
+```
+
+## 使用方法
+
+### 添加支出
+```bash
+track add -c 餐饮 -a 35 -n 午饭
+```
+
+### 添加收入
+```bash
+track add-income -c 工资 -a 8000 -n 5月工资
+```
+
+### 查看月度汇总
+```bash
+track summary
+track summary -m 2026-04
+```
+
+### 查看交易记录
+```bash
+track list
+track list -c 餐饮
+```
+
+### 设置预算
+```bash
+track budget -c 餐饮 -a 2000
+track budget -c 交通 -a 500 -m 2026-06
+```
+
+### 查看预算
+```bash
+track budget-list
+```
+
+### 导出CSV
+```bash
+track export -o transactions.csv
+track export -m 2026-04 -o april.csv
+```
+
+### 删除记录
+```bash
+track delete 1
+```
+
+## 数据存储
+
+数据存储在 `~/.track/track.db`
