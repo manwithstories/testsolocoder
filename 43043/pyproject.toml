@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fit-tracker"
+version = "0.1.0"
+description = "命令行健身训练记录工具"
+requires-python = ">=3.9"
+dependencies = [
+    "click>=8.1.0",
+    "SQLAlchemy>=2.0.0",
+    "rich>=13.0.0",
+    "python-dateutil>=2.8.0",
+]
+
+[project.scripts]
+fit = "fit_tracker.cli:cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]
