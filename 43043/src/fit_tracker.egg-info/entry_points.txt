@@ -1,0 +1,2 @@
+[console_scripts]
+fit = fit_tracker.cli:cli

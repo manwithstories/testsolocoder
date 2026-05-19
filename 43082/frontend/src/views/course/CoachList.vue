@@ -1,0 +1,191 @@
+<template>
+  <div class="coach-list">
+    <el-card>
+      <template #header>
+        <div class="card-header">
+          <span style="font-weight: 600">教练列表</span>
+          <el-button type="primary" @click="openAddDialog">
+            <el-icon><Plus /></el-icon>
+            添加教练
+          </el-button>
+        </div>
+      </template>
+
+      <el-table :data="coaches" style="width: 100%" v-loading="loading">
+        <el-table-column prop="id" label="ID" width="80" />
+        <el-table-column prop="name" label="姓名" />
+        <el-table-column prop="phone" label="手机号" />
+        <el-table-column prop="specialty" label="专长" />
+        <el-table-column prop="description" label="简介" show-overflow-tooltip />
+        <el-table-column prop="status" label="状态" width="100">
+          <template #default="{ row }">
+            <el-tag :type="row.status === 1 ? 'success' : 'info'">
+              {{ row.status === 1 ? '在职' : '离职' }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" width="180" fixed="right">
+          <template #default="{ row }">
+            <el-button type="warning" link @click="openEditDialog(row)">编辑</el-button>
+            <el-button :type="row.status === 1 ? 'info' : 'success'" link @click="toggleStatus(row)">
+              {{ row.status === 1 ? '离职' : '复职' }}
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <el-pagination
+        v-model:current-page="pagination.page"
+        v-model:page-size="pagination.pageSize"
+        :page-sizes="[10, 20, 50]"
+        :total="pagination.total"
+        layout="total, sizes, prev, pager, next, jumper"
+        style="margin-top: 20px; justify-content: flex-end"
+        @size-change="loadCoaches"
+        @current-change="loadCoaches"
+      />
+    </el-card>
+
+    <el-dialog v-model="dialogVisible" :title="isEdit ? '编辑教练' : '添加教练'" width="500px">
+      <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="姓名" prop="name">
+          <el-input v-model="form.name" />
+        </el-form-item>
+        <el-form-item label="手机号" prop="phone">
+          <el-input v-model="form.phone" maxlength="11" />
+        </el-form-item>
+        <el-form-item label="专长">
+          <el-input v-model="form.specialty" placeholder="例如：瑜伽、力量训练" />
+        </el-form-item>
+        <el-form-item label="简介">
+          <el-input v-model="form.description" type="textarea" :rows="3" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="handleSubmit" :loading="submitting">确定</el-button>
+      </template>
+    </el-dialog>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { reactive, ref, onMounted } from 'vue'
+import { ElMessage, ElMessageBox, type FormInstance, type FormRules } from 'element-plus'
+import { coachApi } from '@/api/course'
+import type { Coach } from '@/types'
+
+const loading = ref(false)
+const submitting = ref(false)
+const coaches = ref<Coach[]>([])
+const dialogVisible = ref(false)
+const isEdit = ref(false)
+const formRef = ref<FormInstance>()
+
+const pagination = reactive({
+  page: 1,
+  pageSize: 10,
+  total: 0
+})
+
+const form = reactive({
+  id: 0,
+  name: '',
+  phone: '',
+  specialty: '',
+  description: ''
+})
+
+const rules: FormRules = {
+  name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
+  phone: [
+    { required: true, message: '请输入手机号', trigger: 'blur' },
+    { len: 11, message: '手机号格式不正确', trigger: 'blur' }
+  ]
+}
+
+const loadCoaches = async () => {
+  try {
+    loading.value = true
+    const res = await coachApi.getList({
+      page: pagination.page,
+      page_size: pagination.pageSize
+    })
+    coaches.value = res.data
+    pagination.total = res.pagination.total
+  } catch (error) {
+    console.error(error)
+  } finally {
+    loading.value = false
+  }
+}
+
+const openAddDialog = () => {
+  isEdit.value = false
+  Object.assign(form, { id: 0, name: '', phone: '', specialty: '', description: '' })
+  dialogVisible.value = true
+}
+
+const openEditDialog = (row: Coach) => {
+  isEdit.value = true
+  Object.assign(form, row)
+  dialogVisible.value = true
+}
+
+const handleSubmit = async () => {
+  if (!formRef.value) return
+  
+  await formRef.value.validate(async (valid) => {
+    if (!valid) return
+    
+    try {
+      submitting.value = true
+      if (isEdit.value) {
+        const { id, ...data } = form
+        await coachApi.update(id, data)
+        ElMessage.success('编辑成功')
+      } else {
+        await coachApi.create(form)
+        ElMessage.success('添加成功')
+      }
+      dialogVisible.value = false
+      loadCoaches()
+    } catch (error) {
+      console.error(error)
+    } finally {
+      submitting.value = false
+    }
+  })
+}
+
+const toggleStatus = async (row: Coach) => {
+  const newStatus = row.status === 1 ? 2 : 1
+  const action = newStatus === 1 ? '复职' : '离职'
+  
+  try {
+    await ElMessageBox.confirm(`确定要将该教练标记为${action}吗？`, '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning'
+    })
+    
+    await coachApi.update(row.id, { status: newStatus })
+    ElMessage.success(`${action}成功`)
+    loadCoaches()
+  } catch (error) {
+    if (error !== 'cancel') {
+      console.error(error)
+    }
+  }
+}
+
+onMounted(loadCoaches)
+</script>
+
+<style scoped>
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>
