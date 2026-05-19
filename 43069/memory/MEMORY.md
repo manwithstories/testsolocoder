@@ -1,0 +1,6 @@
+- [43069-eval-round1](43069-eval-round1.md) — Go Cobra API压测工具第1轮评测发现ramp_up未实现、配置继承合并缺陷
+- [42901-eval-round1](../memory/eval_42901_round1.md) — 家庭记账API项目第1轮评测通过，所有核心需求已实现
+- [42902-eval-round1](../memory/eval_42902_round1.md) — 活动管理系统第1轮评测发现导出功能失效，需修复认证方式
+- [42902-eval-round2](../memory/eval_42902_round2.md) — 活动管理系统第2轮评测通过，导出功能已修复
+- [43052-eval-round1](../memory/eval_43052_round1.md) — Go配置文件处理工具第1轮评测通过，核心功能已实现，存在参数顺序文档问题
+- [43068-eval-round1](../43068-eval-round1.md) — 自由职业者项目与发票管理系统第1轮评测发现计时器停止失败、里程碑UI缺失

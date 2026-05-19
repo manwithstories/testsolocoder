@@ -1,0 +1,19 @@
+name: "基础配置"
+description: "所有环境共享的基础配置"
+base_url: "https://jsonplaceholder.typicode.com"
+timeout: 10
+retries: 2
+
+headers:
+  Content-Type: "application/json"
+  User-Agent: "apitester/1.0"
+  Accept: "application/json"
+
+concurrency:
+  mode: "duration"
+  workers: 5
+  duration: 60
+
+variables:
+  env: "base"
+  timeout_ms: "3000"

@@ -1,0 +1,50 @@
+inherits: base-config.yaml
+
+name: "生产环境测试"
+description: "生产环境性能测试配置"
+
+variables:
+  env: "production"
+  timeout_ms: "5000"
+
+concurrency:
+  workers: 50
+  duration: 300
+
+scenarios:
+  - name: "核心接口测试"
+    weight: 5
+    requests:
+      - name: "获取用户列表"
+        method: "GET"
+        path: "/users"
+        assertions:
+          - type: "status_code"
+            operator: "eq"
+            value: 200
+          - type: "response_time"
+            operator: "lte"
+            value: 5000
+        think_time: 200
+
+      - name: "获取单个用户"
+        method: "GET"
+        path: "/users/1"
+        assertions:
+          - type: "status_code"
+            operator: "eq"
+            value: 200
+        think_time: 100
+
+  - name: "写入接口测试"
+    weight: 1
+    requests:
+      - name: "创建用户"
+        method: "POST"
+        path: "/users"
+        body: '{"name": "Test User", "username": "testuser", "email": "test@example.com"}'
+        assertions:
+          - type: "status_code"
+            operator: "eq"
+            value: 201
+        think_time: 1000

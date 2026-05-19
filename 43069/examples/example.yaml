@@ -1,0 +1,78 @@
+name: "API性能测试示例"
+description: "示例配置文件 - 测试用户登录和查询流程"
+base_url: "https://jsonplaceholder.typicode.com"
+timeout: 10
+retries: 1
+
+variables:
+  env: "test"
+  user_id: "1"
+
+headers:
+  Content-Type: "application/json"
+  User-Agent: "apitester/1.0"
+
+concurrency:
+  mode: "duration"
+  workers: 10
+  duration: 30
+  ramp_up: 5
+
+scenarios:
+  - name: "获取用户信息"
+    weight: 3
+    requests:
+      - name: "获取用户列表"
+        method: "GET"
+        path: "/users"
+        assertions:
+          - type: "status_code"
+            operator: "eq"
+            value: 200
+          - type: "response_time"
+            operator: "lte"
+            value: 3000
+        think_time: 100
+
+      - name: "获取单个用户"
+        method: "GET"
+        path: "/users/1"
+        assertions:
+          - type: "status_code"
+            operator: "eq"
+            value: 200
+          - type: "body_field"
+            field: "id"
+            operator: "eq"
+            value: 1
+        think_time: 200
+
+  - name: "获取帖子"
+    weight: 2
+    requests:
+      - name: "获取帖子列表"
+        method: "GET"
+        path: "/posts?_limit=10"
+        assertions:
+          - type: "status_code"
+            operator: "eq"
+            value: 200
+          - type: "response_time"
+            operator: "lte"
+            value: 3000
+        think_time: 150
+
+  - name: "创建帖子"
+    weight: 1
+    requests:
+      - name: "创建新帖子"
+        method: "POST"
+        path: "/posts"
+        body: '{"title": "foo", "body": "bar", "userId": 1}'
+        assertions:
+          - type: "status_code"
+            operator: "eq"
+            value: 201
+          - type: "body_contains"
+            value: "foo"
+        think_time: 500

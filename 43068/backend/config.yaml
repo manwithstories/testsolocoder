@@ -1,0 +1,24 @@
+server:
+  port: 8080
+  mode: debug
+
+database:
+  driver: sqlite
+  dsn: ./freelancer.db
+
+jwt:
+  secret: your-secret-key-change-in-production
+  access_token_ttl: 3600
+  refresh_token_ttl: 604800
+
+email:
+  smtp_host: smtp.example.com
+  smtp_port: 587
+  username: your-email@example.com
+  password: your-password
+  from_name: Freelancer Management
+  from_address: no-reply@example.com
+
+app:
+  max_hours_per_day: 24
+  invoice_prefix: INV

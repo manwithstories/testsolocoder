@@ -1,0 +1,28 @@
+name: "Ramp Up 测试"
+description: "测试渐进式启动并发数功能"
+base_url: "https://jsonplaceholder.typicode.com"
+timeout: 10
+retries: 1
+
+headers:
+  Content-Type: "application/json"
+  User-Agent: "apitester/1.0"
+
+concurrency:
+  mode: "duration"
+  workers: 10
+  duration: 15
+  ramp_up: 10
+
+scenarios:
+  - name: "获取用户"
+    weight: 1
+    requests:
+      - name: "用户列表"
+        method: "GET"
+        path: "/users"
+        assertions:
+          - type: "status_code"
+            operator: "eq"
+            value: 200
+        think_time: 500
