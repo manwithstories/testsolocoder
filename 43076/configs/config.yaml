@@ -1,0 +1,67 @@
+server:
+  host: "0.0.0.0"
+  port: 8080
+  mode: "debug"
+
+database:
+  host: "127.0.0.1"
+  port: 3306
+  user: "root"
+  password: "password"
+  name: "ticket_system"
+  charset: "utf8mb4"
+  parse_time: true
+  max_idle_conns: 10
+  max_open_conns: 100
+  conn_max_lifetime: 3600
+
+jwt:
+  secret: "your-secret-key-change-in-production"
+  expire_hours: 24
+
+sla:
+  priorities:
+    urgent:
+      response_minutes: 15
+      resolution_hours: 4
+      escalation_hours: 1
+    high:
+      response_minutes: 30
+      resolution_hours: 24
+      escalation_hours: 4
+    medium:
+      response_minutes: 120
+      resolution_hours: 72
+      escalation_hours: 12
+    low:
+      response_minutes: 240
+      resolution_hours: 168
+      escalation_hours: 24
+
+email:
+  enabled: true
+  host: "smtp.example.com"
+  port: 587
+  username: "noreply@example.com"
+  password: "email-password"
+  from: "Ticket System <noreply@example.com>"
+
+upload:
+  max_size_mb: 50
+  allowed_types:
+    - "image/jpeg"
+    - "image/png"
+    - "image/gif"
+    - "application/pdf"
+    - "application/msword"
+    - "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    - "application/vnd.ms-excel"
+    - "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  storage_path: "./uploads"
+
+log:
+  level: "info"
+  file_path: "./logs/app.log"
+  max_size_mb: 100
+  max_backups: 10
+  max_age_days: 30

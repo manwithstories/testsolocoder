@@ -1,0 +1,68 @@
+{
+  "version": "1.0",
+  "vaults": [
+    {
+      "id": "035c5ea6ef7775227da064cd4fc799a2",
+      "name": "personal",
+      "created_at": "2026-05-18T10:51:11.613461+08:00",
+      "updated_at": "2026-05-18T10:57:17.052682+08:00",
+      "snippets": [
+        {
+          "id": "068fb1f8d6230cac9982f04d6fc7ec79",
+          "title": "Hello World",
+          "content": "console.log('Hello World');",
+          "language": "javascript",
+          "tags": [
+            "test",
+            "demo"
+          ],
+          "description": "A simple hello world example",
+          "created_at": "2026-05-18T10:56:48.287607+08:00",
+          "updated_at": "2026-05-18T10:56:48.287607+08:00",
+          "encrypted": false
+        },
+        {
+          "id": "07dbff57bbe69ca4302e43f758ad54d4",
+          "title": "Python List",
+          "content": "my_list = [1, 2, 3]",
+          "language": "python",
+          "tags": [
+            "python",
+            "data"
+          ],
+          "description": "",
+          "created_at": "2026-05-18T10:57:17.050118+08:00",
+          "updated_at": "2026-05-18T10:57:17.050118+08:00",
+          "encrypted": false
+        },
+        {
+          "id": "4d2510db4e733a94d721f5b29c4c22c6",
+          "title": "Go Hello",
+          "content": "fmt.Println(\"Hello\")",
+          "language": "go",
+          "tags": [
+            "golang"
+          ],
+          "description": "",
+          "created_at": "2026-05-18T10:57:17.052679+08:00",
+          "updated_at": "2026-05-18T10:57:17.052679+08:00",
+          "encrypted": false
+        }
+      ]
+    },
+    {
+      "id": "8dd28b47a99475cfc194eb8e8ff46760",
+      "name": "work",
+      "created_at": "2026-05-18T10:51:11.608895+08:00",
+      "updated_at": "2026-05-18T10:51:11.608898+08:00",
+      "snippets": []
+    },
+    {
+      "id": "b44247106a7393f5bb81a6075d3c7c48",
+      "name": "default",
+      "created_at": "2026-05-18T10:50:47.515244+08:00",
+      "updated_at": "2026-05-18T10:50:47.515295+08:00",
+      "snippets": []
+    }
+  ]
+}

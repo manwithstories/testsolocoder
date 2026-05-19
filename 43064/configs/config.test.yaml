@@ -1,0 +1,50 @@
+server:
+  host: "127.0.0.1"
+  port: 8081
+  mode: "test"
+
+database:
+  host: "127.0.0.1"
+  port: 3306
+  user: "root"
+  password: "password"
+  dbname: "notification_center_test"
+  charset: "utf8mb4"
+  parse_time: true
+  max_open_conns: 10
+  max_idle_conns: 5
+  conn_max_lifetime: 3600
+
+redis:
+  host: "127.0.0.1"
+  port: 6379
+  password: ""
+  db: 1
+  pool_size: 10
+
+log:
+  level: "debug"
+  format: "console"
+  output: "stdout"
+
+rate_limit:
+  global:
+    enabled: false
+  default_channel:
+    enabled: false
+
+queue:
+  worker_count: 2
+  max_queue_size: 1000
+  poll_interval: 500
+
+retry:
+  max_attempts: 3
+  initial_backoff: 100
+  max_backoff: 5000
+  backoff_multiplier: 2.0
+
+webhook:
+  timeout: 2000
+  max_retries: 1
+  backoff: 500

@@ -1,0 +1,13 @@
+default_account: cash
+default_currency: CNY
+budget_alert: true
+
+backup:
+  enabled: false
+  schedule: daily
+  local_path: ~/.finance-tracker/backups
+  retention_days: 30
+  max_backups: 10
+
+database_path: ~/.finance-tracker/finance.db
+log_path: ~/.finance-tracker/logs
