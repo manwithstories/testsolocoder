@@ -1,0 +1,3 @@
+- [Car Rental Eval 43116](car_rental_eval_43116.md) — Go+Gin+Vue3+Redis在线汽车租赁与预订管理Web应用R1评测：FAIL（后端包名冲突致编译失败+消息队列消费未启动+定时提醒任务缺失+前端仪表盘API路径不匹配）
+- [Car Rental Eval 43116 R2](car_rental_eval_43116_r2.md) — Go+Gin+Vue3+Redis在线汽车租赁与预订管理Web应用R2评测：FAIL（缺少go.sum致后端无法编译+定时提醒任务缺失+前端依赖未安装）
+- [Car Rental Eval 43116 R4](car_rental_eval_43116_r4.md) — Go+Gin+Vue3+Redis在线汽车租赁与预订管理Web应用R4评测：FAIL（缺少go.sum致后端无法编译+vue-tsc版本不兼容致前端无法构建）

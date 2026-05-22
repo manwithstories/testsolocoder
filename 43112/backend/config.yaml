@@ -1,0 +1,27 @@
+server:
+  port: "8080"
+  mode: "release"
+
+database:
+  host: "localhost"
+  port: "5432"
+  user: "postgres"
+  password: "postgres"
+  dbname: "elearning"
+  sslmode: "disable"
+  timezone: "Asia/Shanghai"
+
+jwt:
+  secret: "your-256-bit-secret-key-here-please-change-in-production"
+  expire_hours: 72
+
+upload:
+  max_size_mb: 50
+  allowed_image: "jpg,jpeg,png,gif,webp"
+  allowed_video: "mp4,mov,avi,mkv"
+  allowed_document: "pdf,doc,docx,xls,xlsx"
+  upload_dir: "./uploads"
+
+log:
+  level: "info"
+  log_dir: "./logs"

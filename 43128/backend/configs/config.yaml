@@ -1,0 +1,24 @@
+server:
+  port: 8080
+  mode: release
+  log_level: info
+
+mysql:
+  dsn: "root:123456@tcp(127.0.0.1:3306)/event_platform?charset=utf8mb4&parseTime=True&loc=Local"
+  max_open: 100
+  max_idle: 20
+
+redis:
+  addr: "127.0.0.1:6379"
+  password: ""
+  db: 0
+  pool_size: 50
+
+jwt:
+  secret: "event-platform-super-secret-change-me"
+  expire_minutes: 720
+
+upload:
+  dir: "./uploads"
+  certificate_dir: "./uploads/certificates"
+  max_file_size: 20971520

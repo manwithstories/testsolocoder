@@ -1,78 +1,31 @@
 package main
 
 import (
-	"gym-management/config"
-	"gym-management/internal/api"
-	"gym-management/internal/middleware"
-	"gym-management/internal/models"
-	"gym-management/internal/pkg/database"
-	"gym-management/internal/pkg/logger"
-	"gym-management/internal/service"
 	"log"
+	"multishop/internal/config"
+	"multishop/internal/database"
+	"multishop/internal/routes"
 
 	"github.com/gin-gonic/gin"
-	"github.com/robfig/cron/v3"
-	"go.uber.org/zap"
 )
 
 func main() {
-	config.LoadConfig()
+	cfg := config.Load()
 
-	logger.InitLogger(config.AppConfig.Log.Level, config.AppConfig.Log.File)
-	defer logger.Sync()
+	if err := database.Init(cfg); err != nil {
+		log.Fatalf("Failed to initialize database: %v", err)
+	}
 
-	database.InitDB()
+	if err := database.AutoMigrate(); err != nil {
+		log.Fatalf("Failed to migrate database: %v", err)
+	}
 
-	models.AutoMigrate()
-
-	gin.SetMode(config.AppConfig.Server.Mode)
 	r := gin.Default()
 
-	r.Use(middleware.CORSMiddleware())
-	r.Use(middleware.OperationLogMiddleware())
+	routes.Setup(r, cfg)
 
-	apiV1 := r.Group("/api/v1")
-	{
-		api.NewMemberHandler().RegisterRoutes(apiV1)
-		api.NewMembershipHandler().RegisterRoutes(apiV1)
-		api.NewCourseHandler().RegisterRoutes(apiV1)
-		api.NewBookingHandler().RegisterRoutes(apiV1)
-		api.NewCheckInHandler().RegisterRoutes(apiV1)
-		api.NewStatsHandler().RegisterRoutes(apiV1)
-		api.NewCoachHandler().RegisterRoutes(apiV1)
-	}
-
-	go startReminderScheduler()
-
-	log.Printf("Server starting on port %s", config.AppConfig.Server.Port)
-	if err := r.Run(":" + config.AppConfig.Server.Port); err != nil {
+	log.Printf("Server starting on %s:%s", cfg.ServerHost, cfg.ServerPort)
+	if err := r.Run(cfg.ServerHost + ":" + cfg.ServerPort); err != nil {
 		log.Fatalf("Failed to start server: %v", err)
 	}
-}
-
-func startReminderScheduler() {
-	c := cron.New()
-
-	reminderService := service.NewReminderService()
-
-	_, err := c.AddFunc("0 0 9 * * *", func() {
-		logger.Info("Running daily reminder generation job")
-		_ = reminderService.SendReminders()
-	})
-	if err != nil {
-		logger.Error("Failed to add daily reminder cron job", zap.Error(err))
-	}
-
-	_, err = c.AddFunc("0 */30 * * * *", func() {
-		logger.Info("Running pending reminder processing job")
-		_ = reminderService.ProcessPendingReminders()
-	})
-	if err != nil {
-		logger.Error("Failed to add reminder processing cron job", zap.Error(err))
-	}
-
-	c.Start()
-	logger.Info("Reminder scheduler started")
-
-	select {}
 }

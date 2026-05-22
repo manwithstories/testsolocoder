@@ -1,0 +1,3 @@
+- [Beauty Salon Eval 43129 R1](beauty_salon_eval_43129.md) — Go+Gin+Vue3+Redis美容美发预约管理系统R1评测：FAIL(编译失败+缺少go.sum+通知用户ID错误)
+- [Beauty Salon Eval 43129 R3](beauty_salon_eval_43129_r3.md) — Go+Gin+Vue3+Redis美容美发预约管理系统R3评测：R2三问题已修复，但前端构建失败(图标名称错误Scissors应为Scissor)
+- [Beauty Salon Eval 43129 R4](beauty_salon_eval_43129_r4.md) — Go+Gin+Vue3+Redis美容美发预约管理系统R4评测：PASS(R3图标问题已修复，核心功能完整)

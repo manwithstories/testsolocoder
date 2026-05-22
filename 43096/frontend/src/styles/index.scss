@@ -1,0 +1,89 @@
+@import './variables.scss';
+
+.seat-available {
+  background-color: #67c23a;
+  cursor: pointer;
+  border: 1px solid #67c23a;
+
+  &:hover {
+    background-color: #85ce61;
+  }
+}
+
+.seat-locked {
+  background-color: #c0c4cc;
+  cursor: not-allowed;
+  border: 1px solid #c0c4cc;
+}
+
+.seat-sold {
+  background-color: #f56c6c;
+  cursor: not-allowed;
+  border: 1px solid #f56c6c;
+}
+
+.seat-selected {
+  background-color: #409eff;
+  border: 2px solid #409eff;
+  cursor: pointer;
+}
+
+.seat {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: white;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.page-header {
+  padding: 20px;
+  background: white;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.05);
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.05);
+  padding: 20px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.p-20 {
+  padding: 20px;
+}

@@ -1,0 +1,37 @@
+server:
+  port: ":8080"
+  mode: "debug"
+
+database:
+  host: "127.0.0.1"
+  port: "3306"
+  user: "root"
+  password: "123456"
+  name: "car_rental"
+  charset: "utf8mb4"
+
+redis:
+  host: "127.0.0.1"
+  port: "6379"
+  password: ""
+  db: 0
+
+jwt:
+  secret: "car-rental-secret-key-2024"
+  access_expire: 24
+  refresh_expire: 168
+
+upload:
+  path: "./uploads"
+  max_size: 10485760
+
+email:
+  host: "smtp.example.com"
+  port: 465
+  user: "noreply@example.com"
+  password: "your-email-password"
+  from_name: "汽车租赁系统"
+
+logging:
+  level: "info"
+  path: "./logs"

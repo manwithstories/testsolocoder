@@ -1,109 +1,85 @@
 package middleware
 
 import (
-	"gym-management/config"
-	"gym-management/internal/pkg/utils"
+	"multishop/internal/config"
+	"multishop/pkg/auth"
+	apperrors "multishop/pkg/errors"
 	"net/http"
 	"strings"
-	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v5"
 )
 
-type Claims struct {
-	UserID   uint   `json:"user_id"`
-	Username string `json:"username"`
-	Role     string `json:"role"`
-	jwt.RegisteredClaims
-}
+type contextKey string
 
-func JWTAuth() gin.HandlerFunc {
+const (
+	UserIDKey contextKey = "userID"
+	RoleKey   contextKey = "role"
+)
+
+func AuthMiddleware(cfg *config.Config) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" {
-			utils.Unauthorized(c, "未提供认证令牌")
+			c.JSON(http.StatusUnauthorized, apperrors.ErrUnauthorized)
 			c.Abort()
 			return
 		}
 
-		parts := strings.SplitN(authHeader, " ", 2)
-		if !(len(parts) == 2 && parts[0] == "Bearer") {
-			utils.Unauthorized(c, "认证令牌格式错误")
+		parts := strings.Split(authHeader, " ")
+		if len(parts) != 2 || parts[0] != "Bearer" {
+			c.JSON(http.StatusUnauthorized, apperrors.ErrInvalidToken)
 			c.Abort()
 			return
 		}
 
-		claims, err := ParseToken(parts[1])
+		claims, err := auth.ParseToken(parts[1], cfg.JWTSecret)
 		if err != nil {
-			utils.Unauthorized(c, "无效的认证令牌")
+			c.JSON(http.StatusUnauthorized, apperrors.ErrInvalidToken)
 			c.Abort()
 			return
 		}
 
-		c.Set("userID", claims.UserID)
-		c.Set("username", claims.Username)
-		c.Set("role", claims.Role)
+		c.Set(string(UserIDKey), claims.UserID)
+		c.Set(string(RoleKey), claims.Role)
 		c.Next()
 	}
 }
 
-func GenerateToken(userID uint, username string, role string) (string, error) {
-	expirationTime := time.Now().Add(time.Duration(config.AppConfig.JWT.ExpireHours) * time.Hour)
-	claims := &Claims{
-		UserID:   userID,
-		Username: username,
-		Role:     role,
-		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(expirationTime),
-			IssuedAt:  jwt.NewNumericDate(time.Now()),
-			Issuer:    "gym-management",
-		},
-	}
-
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString([]byte(config.AppConfig.JWT.Secret))
-}
-
-func ParseToken(tokenString string) (*Claims, error) {
-	token, err := jwt.ParseWithClaims(tokenString, &Claims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte(config.AppConfig.JWT.Secret), nil
-	})
-
-	if err != nil {
-		return nil, err
-	}
-
-	if claims, ok := token.Claims.(*Claims); ok && token.Valid {
-		return claims, nil
-	}
-
-	return nil, err
-}
-
-func AdminRequired() gin.HandlerFunc {
+func RoleMiddleware(allowedRoles ...string) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		role, exists := c.Get("role")
-		if !exists || role != "admin" {
-			utils.Forbidden(c, "需要管理员权限")
+		role, exists := c.Get(string(RoleKey))
+		if !exists {
+			c.JSON(http.StatusUnauthorized, apperrors.ErrUnauthorized)
 			c.Abort()
 			return
 		}
-		c.Next()
-	}
-}
 
-func CORSMiddleware() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+		userRole := role.(string)
+		allowed := false
+		for _, r := range allowedRoles {
+			if r == userRole {
+				allowed = true
+				break
+			}
+		}
 
-		if c.Request.Method == "OPTIONS" {
-			c.AbortWithStatus(http.StatusNoContent)
+		if !allowed {
+			c.JSON(http.StatusForbidden, apperrors.ErrPermissionDenied)
+			c.Abort()
 			return
 		}
 
 		c.Next()
 	}
+}
+
+func GetUserID(c *gin.Context) uint {
+	userID, _ := c.Get(string(UserIDKey))
+	return userID.(uint)
+}
+
+func GetUserRole(c *gin.Context) string {
+	role, _ := c.Get(string(RoleKey))
+	return role.(string)
 }

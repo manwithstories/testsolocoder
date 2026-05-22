@@ -1,0 +1,39 @@
+server:
+  port: "8080"
+  mode: "debug"
+
+database:
+  host: "localhost"
+  port: "3306"
+  user: "root"
+  password: "password"
+  dbname: "meeting_room"
+  charset: "utf8mb4"
+
+redis:
+  host: "localhost"
+  port: "6379"
+  password: ""
+  db: 0
+
+jwt:
+  secret: "your-jwt-secret-key-change-in-production"
+  expire_hours: 24
+
+email:
+  smtp_host: "smtp.example.com"
+  smtp_port: 587
+  username: "noreply@example.com"
+  password: "email-password"
+  from: "会议室预订系统 <noreply@example.com>"
+
+log:
+  level: "info"
+  filename: "logs/app.log"
+  max_size: 100
+  max_backups: 10
+  max_age: 30
+
+upload:
+  dir: "./uploads"
+  max_size: 50
