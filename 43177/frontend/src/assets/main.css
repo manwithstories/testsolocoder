@@ -1,0 +1,121 @@
+body {
+  background-color: #f5f7fa;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e4e7ed;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #303133;
+}
+
+.card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.status-tag {
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.status-pending {
+  background-color: #fdf6ec;
+  color: #e6a23c;
+}
+
+.status-assigned {
+  background-color: #ecf5ff;
+  color: #409eff;
+}
+
+.status-accepted {
+  background-color: #ecf5ff;
+  color: #409eff;
+}
+
+.status-on_site {
+  background-color: #f0f9eb;
+  color: #67c23a;
+}
+
+.status-repairing {
+  background-color: #f0f9eb;
+  color: #67c23a;
+}
+
+.status-completed {
+  background-color: #f0f9eb;
+  color: #67c23a;
+}
+
+.status-cancelled {
+  background-color: #fef0f0;
+  color: #f56c6c;
+}
+
+.status-refunding {
+  background-color: #fdf6ec;
+  color: #e6a23c;
+}
+
+.status-refunded {
+  background-color: #fef0f0;
+  color: #f56c6c;
+}
+
+.rating-stars {
+  color: #fba934;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #909399;
+}
+
+.fab-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+}
+
+.admin-layout {
+  display: flex;
+  height: 100vh;
+}
+
+.admin-sidebar {
+  width: 220px;
+  background-color: #304156;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.admin-main {
+  flex: 1;
+  overflow: auto;
+  background-color: #f0f2f5;
+}
+
+.admin-content {
+  padding: 20px;
+}

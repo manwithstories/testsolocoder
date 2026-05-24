@@ -1,0 +1,36 @@
+server:
+  port: "8080"
+  mode: "release"
+
+database:
+  host: "127.0.0.1"
+  port: "3306"
+  name: "business_registration"
+  user: "root"
+  password: "123456"
+  charset: "utf8mb4"
+  maxIdleConns: 10
+  maxOpenConns: 100
+
+jwt:
+  secret: "business-registration-platform-secret-key-2024"
+  expiresIn: 24
+
+file:
+  uploadPath: "./uploads"
+  maxSize: 10485760
+
+email:
+  host: "smtp.example.com"
+  port: 465
+  user: "noreply@example.com"
+  password: "password"
+  from: "noreply@example.com"
+
+sms:
+  apiKey: "your-sms-api-key"
+  apiSecret: "your-sms-api-secret"
+
+log:
+  level: "info"
+  filePath: "./logs/app.log"

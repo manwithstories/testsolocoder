@@ -1,0 +1,231 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #app {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+  background-color: #f5f7fa;
+}
+
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #303133;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #303133;
+}
+
+.form-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.btn-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.status-tag {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.status-pending {
+  background: #fdf6ec;
+  color: #e6a23c;
+}
+
+.status-confirmed {
+  background: #ecf5ff;
+  color: #409eff;
+}
+
+.status-rented {
+  background: #f0f9eb;
+  color: #67c23a;
+}
+
+.status-completed {
+  background: #f4f4f5;
+  color: #909399;
+}
+
+.status-cancelled {
+  background: #fef0f0;
+  color: #f56c6c;
+}
+
+.equipment-card {
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.equipment-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.equipment-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+.equipment-info {
+  padding: 16px;
+}
+
+.equipment-name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #303133;
+}
+
+.equipment-price {
+  font-size: 18px;
+  color: #f56c6c;
+  font-weight: 600;
+}
+
+.equipment-rating {
+  color: #e6a23c;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.search-filter {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.filter-item {
+  flex: 1;
+  min-width: 150px;
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #909399;
+}
+
+.empty-state .el-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.image-uploader {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.image-uploader .el-upload {
+  width: 100px;
+  height: 100px;
+}
+
+.calendar-container {
+  margin: 20px 0;
+}
+
+.order-status-timeline {
+  padding: 20px 0;
+}
+
+.review-item {
+  padding: 16px 0;
+  border-bottom: 1px solid #ebeef5;
+}
+
+.review-item:last-child {
+  border-bottom: none;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.review-content {
+  color: #606266;
+  line-height: 1.6;
+}
+
+.export-section {
+  margin-bottom: 30px;
+}
+
+.export-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.statistics-card {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px 0;
+}
+
+.statistic-item {
+  text-align: center;
+}
+
+.statistic-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: #409eff;
+}
+
+.statistic-label {
+  font-size: 14px;
+  color: #909399;
+  margin-top: 4px;
+}

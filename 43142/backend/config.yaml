@@ -1,0 +1,32 @@
+server:
+  port: 8080
+  mode: debug
+
+database:
+  driver: sqlite
+  sqlite_path: ./recruitment.db
+
+jwt:
+  secret: "recruitment-platform-secret-key-2026"
+  expiration_hours: 24
+
+email:
+  smtp_host: smtp.gmail.com
+  smtp_port: 587
+  username: your-email@gmail.com
+  password: your-app-password
+  from: noreply@recruitment.com
+
+upload:
+  max_size_mb: 10
+  allowed_types:
+    - application/pdf
+    - application/msword
+    - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+  resume_path: ./uploads/resumes
+
+rate_limit:
+  register: 5
+  register_window_minutes: 60
+  login: 10
+  login_window_minutes: 30

@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: luxury-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: luxury_trading
+      MYSQL_USER: luxury
+      MYSQL_PASSWORD: luxury123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    networks:
+      - luxury-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: luxury-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - luxury-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: luxury-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=luxury
+      - DB_PASSWORD=luxury123
+      - DB_NAME=luxury_trading
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - JWT_SECRET=luxury-trading-secret-key-change-in-production
+    depends_on:
+      - mysql
+      - redis
+    volumes:
+      - upload_data:/app/uploads
+    networks:
+      - luxury-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: luxury-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - luxury-network
+
+volumes:
+  mysql_data:
+  redis_data:
+  upload_data:
+
+networks:
+  luxury-network:
+    driver: bridge

@@ -1,0 +1,34 @@
+server:
+  port: 8080
+  mode: release
+
+database:
+  driver: mysql
+  dsn: "root:password@tcp(127.0.0.1:3306)/drone_rental?charset=utf8mb4&parseTime=True&loc=Local"
+  max_idle_conns: 10
+  max_open_conns: 100
+
+jwt:
+  secret: "drone-rental-super-secret-key-2024"
+  expire_hours: 24
+
+upload:
+  max_size: 50
+  save_path: "./uploads"
+  allowed_ext:
+    - ".jpg"
+    - ".jpeg"
+    - ".png"
+    - ".pdf"
+
+log:
+  level: info
+  file_path: "./logs/app.log"
+  max_size: 100
+  max_backups: 3
+  max_age: 7
+
+insurance:
+  deposit_rate: 0.3
+  late_fee_rate: 0.01
+  insurance_rate: 0.05

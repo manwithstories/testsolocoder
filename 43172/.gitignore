@@ -1,0 +1,27 @@
+node_modules/
+dist/
+.env
+.env.local
+.DS_Store
+*.log
+.vscode/
+.idea/
+
+# Go
+backend/bin/
+backend/vendor/
+backend/*.exe
+backend/*.exe~
+backend/*.dll
+backend/*.so
+backend/*.dylib
+backend/test/
+backend/out.txt
+
+# Uploads
+backend/uploads/
+backend/logs/
+
+# IDE
+.vscode/
+.idea/

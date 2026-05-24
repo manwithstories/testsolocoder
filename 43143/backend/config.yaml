@@ -1,0 +1,43 @@
+server:
+  port: "8080"
+  mode: "release"
+
+database:
+  host: "localhost"
+  port: "5432"
+  user: "postgres"
+  password: "postgres"
+  dbname: "skillshare"
+  sslmode: "disable"
+
+jwt:
+  secret: "skillshare-secret-key-change-in-production"
+  access_token_expire: 24
+  refresh_token_expire: 168
+
+payment:
+  service_fee_rate: 0.05
+  escrow_days: 7
+  alipay:
+    app_id: ""
+    private_key: ""
+  wechat:
+    app_id: ""
+    app_secret: ""
+
+notification:
+  email:
+    smtp_host: "smtp.gmail.com"
+    smtp_port: 587
+    username: ""
+    password: ""
+  sms:
+    api_key: ""
+    api_secret: ""
+
+encryption:
+  message_key: "skillshare-msg-key-change-in-production"
+
+storage:
+  upload_dir: "./uploads"
+  max_file_size: 10485760
