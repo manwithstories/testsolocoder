@@ -1,0 +1,23 @@
+app:
+  name: housekeeping
+  port: "8080"
+  mode: debug
+
+database:
+  type: sqlite
+  dsn: ./housekeeping.db
+
+jwt:
+  secret: "change-me-in-production-32bytes-secret!!"
+  expire_hour: 24
+
+payment:
+  company_ratio: 0.3
+  staff_ratio: 0.7
+
+order:
+  auto_confirm_hours: 48
+  max_reschedule: 3
+
+ticket:
+  escalate_hours: 24

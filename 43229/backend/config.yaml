@@ -1,0 +1,45 @@
+server:
+  port: 8080
+  mode: debug
+
+database:
+  host: 127.0.0.1
+  port: 3306
+  user: root
+  password: root
+  name: art_auction
+  max_idle_conns: 10
+  max_open_conns: 100
+  conn_max_lifetime: 3600
+
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password: ""
+  db: 0
+
+jwt:
+  secret: "art-auction-secret-key-change-in-production"
+  expire_hour: 24
+
+upload:
+  dir: ./uploads
+  max_size_mb: 20
+  allowed_types: [".jpg", ".jpeg", ".png", ".gif", ".webp"]
+
+mail:
+  host: smtp.example.com
+  port: 587
+  user: noreply@example.com
+  password: ""
+  from: "Art Auction <noreply@example.com>"
+
+auction:
+  min_reserve_ratio: 0.5
+  min_deposit_ratio: 0.1
+  max_bid_hours: 72
+
+log:
+  dir: ./logs
+  level: info
+  keep_days: 30

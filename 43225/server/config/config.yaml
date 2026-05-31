@@ -1,0 +1,39 @@
+server:
+  port: ":8080"
+  mode: "release"
+
+database:
+  host: "localhost"
+  port: "5432"
+  user: "postgres"
+  password: "postgres"
+  dbname: "ship_rental"
+  sslmode: "disable"
+
+jwt:
+  secret: "your-super-secret-key-change-in-production"
+  expires_hour: 24
+
+upload:
+  max_size: 20
+  allowed_types:
+    - ".jpg"
+    - ".jpeg"
+    - ".png"
+    - ".gif"
+    - ".pdf"
+  path: "./uploads"
+
+finance:
+  default_currency: "USD"
+  supported_currencies:
+    - "USD"
+    - "EUR"
+    - "GBP"
+    - "CNY"
+    - "JPY"
+  platform_fee_rate: 0.10
+  dock_fee_rate: 0.05
+
+notification:
+  reminder_days: 7

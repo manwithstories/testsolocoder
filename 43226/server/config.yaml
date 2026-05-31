@@ -1,0 +1,32 @@
+server:
+  port: 8080
+  mode: debug
+  upload_dir: "./uploads"
+  max_upload_size: 50
+
+database:
+  host: "127.0.0.1"
+  port: 3306
+  user: "root"
+  password: "root"
+  name: "museum"
+  max_open_conns: 100
+  max_idle_conns: 10
+
+redis:
+  host: "127.0.0.1"
+  port: 6379
+  password: ""
+  db: 0
+  pool_size: 100
+
+jwt:
+  secret: "museum-secret-key-2024"
+  expire_hours: 24
+
+museum:
+  open_time: "09:00"
+  close_time: "17:00"
+  max_visitors_per_slot: 50
+  slot_duration_minutes: 30
+  advance_booking_days: 7
